@@ -8,7 +8,7 @@ import org.springframework.messaging.simp.SimpMessageSendingOperations;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class ChatController {
+public class PublisherController {
 
     @Autowired
     private SimpMessageSendingOperations messagingTemplate;
