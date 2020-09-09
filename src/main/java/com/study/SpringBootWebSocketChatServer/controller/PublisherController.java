@@ -2,32 +2,27 @@ package com.study.SpringBootWebSocketChatServer.controller;
 
 import com.study.SpringBootWebSocketChatServer.model.ChatMessage;
 import com.study.SpringBootWebSocketChatServer.model.MessageType;
-import com.study.SpringBootWebSocketChatServer.repository.ChatMessageRepository;
+import com.study.SpringBootWebSocketChatServer.redis.RedisPublisher;
+import com.study.SpringBootWebSocketChatServer.repository.ChatRoomRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
-import org.springframework.messaging.simp.SimpMessageSendingOperations;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class PublisherController {
 
     @Autowired
-    private SimpMessageSendingOperations messagingTemplate;
+    private RedisPublisher redisPublisher;
 
     @Autowired
-    private ChatMessageRepository chatMessageRepository;
+    private ChatRoomRepository chatRoomRepository;
 
-    /**
-     *  Description:
-     *      - @MessageMapping 을 통해 WebSocket 으로 들어오는 메시지 발행을 처리합니다.
-     *
-     */
     @MessageMapping(value = "/chat/message")
-    public void send(ChatMessage message) {
+    public void message(ChatMessage message) {
         if (MessageType.ENTER.equals(message.getMessageType())) {
-            message.setMessage(message.getSender() + " 님이 입장하셨습니다.");
+            chatRoomRepository.enterChatRoom(message.getChatRoomId());
+            message.setMessage(message.getSender() + "님이 입장하셨습니다.");
         }
-        chatMessageRepository.save(message);
-        messagingTemplate.convertAndSend("/sub/chat/room/" + message.getChatRoomId(), message);
+        redisPublisher.publish(chatRoomRepository.getTopic(message.getChatRoomId()), message);
     }
 }

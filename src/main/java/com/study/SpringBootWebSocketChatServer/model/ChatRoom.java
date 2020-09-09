@@ -1,6 +1,10 @@
 package com.study.SpringBootWebSocketChatServer.model;
 
-public class ChatRoom {
+import java.io.Serializable;
+
+public class ChatRoom implements Serializable {
+
+    private static final long serialVersionUID = 34789214329287934L;
 
     private String id;
     private String name;
