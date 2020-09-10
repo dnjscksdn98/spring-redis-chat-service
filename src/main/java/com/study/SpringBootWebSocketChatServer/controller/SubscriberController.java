@@ -19,7 +19,6 @@ public class SubscriberController {
     @Autowired
     private ChatMessageRepository chatMessageRepository;
 
-
     /**
      *  Description:
      *      - 채팅방 이름을 파라미터로 전달해서 채팅방 개설

@@ -18,7 +18,7 @@ public class ChatRoomRepository {
     private RedisMessageListenerContainer redisMessageListener;  // 채팅방(Topic)에 발행되는 메시지를 처리할 Listener
 
     private static final String CHAT_ROOMS = "CHAT_ROOM";
-    private RedisTemplate<String, Object> redisTemplate;
+    private final RedisTemplate<String, Object> redisTemplate;
     private HashOperations<String, String, ChatRoom> hashChatRoom;
     private Map<String, ChannelTopic> topics;
 

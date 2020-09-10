@@ -2,6 +2,8 @@ package com.study.SpringBootWebSocketChatServer.redis;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.study.SpringBootWebSocketChatServer.model.ChatMessage;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.connection.Message;
 import org.springframework.data.redis.connection.MessageListener;
@@ -15,6 +17,7 @@ public class RedisSubscriber implements MessageListener {
     private final ObjectMapper objectMapper;
     private final RedisTemplate<String, Object> redisTemplate;
     private final SimpMessageSendingOperations messagingTemplate;
+    private static final Logger LOGGER = LoggerFactory.getLogger(RedisSubscriber.class);
 
     @Autowired
     public RedisSubscriber(
@@ -45,7 +48,7 @@ public class RedisSubscriber implements MessageListener {
             messagingTemplate.convertAndSend("/sub/chat/room/" + chatMessage.getChatRoomId(), chatMessage);
         }
         catch (Exception e) {
-            System.out.println(e.getMessage());
+            LOGGER.error(e.getMessage());
         }
     }
 }
