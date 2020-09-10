@@ -2,5 +2,5 @@ spring:
   profiles:
     active: prod
   redis:
-    host: localhost
+    host: 54.180.124.226
     port: 6379
