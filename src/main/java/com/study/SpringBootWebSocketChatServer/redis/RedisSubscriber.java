@@ -1,7 +1,7 @@
 package com.study.SpringBootWebSocketChatServer.redis;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.study.SpringBootWebSocketChatServer.model.ChatMessage;
+import com.study.SpringBootWebSocketChatServer.model.ChatMessagePayload;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,17 +32,17 @@ public class RedisSubscriber implements MessageListener {
 
     /**
      *  Description:
-     *      - Redis에서 메시지가 발행(Publish)되면 대기하고 있던 onMessage()가 해당 메시지를 받아 처리합니다(Subscribe)
+     *      - Redis 에서 메시지가 발행(Publish)되면 대기하고 있던 onMessage()가 해당 메시지를 받아 처리합니다(Subscribe)
      *
      */
     @Override
     public void onMessage(Message message, byte[] pattern) {
         try {
-            // Redis에서 발행된 데이터를 받아 Deserialize
+            // Redis 에서 발행된 데이터를 받아 Deserialize
             String publishedMessage = redisTemplate.getStringSerializer().deserialize(message.getBody());
 
             // ChatMessage 객체로 매핑
-            ChatMessage chatMessage = objectMapper.readValue(publishedMessage, ChatMessage.class);
+            ChatMessagePayload chatMessage = objectMapper.readValue(publishedMessage, ChatMessagePayload.class);
 
             // WebSocket 구독자에게 채팅 메시지 전송
             messagingTemplate.convertAndSend("/sub/chat/room/" + chatMessage.getChatRoomId(), chatMessage);
