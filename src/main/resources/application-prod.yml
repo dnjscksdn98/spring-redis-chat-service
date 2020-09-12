@@ -1,6 +1,26 @@
 spring:
   profiles:
     active: prod
+
   redis:
-    host: 54.180.124.226
+    host: 172.31.11.164
     port: 6379
+
+  h2:
+    console:
+      enabled: true
+
+  datasource:
+    url: jdbc:h2:mem:testdb
+
+  jpa:
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+logging:
+  level:
+    org:
+      hibernate:
+        type: trace
