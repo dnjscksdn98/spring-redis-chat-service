@@ -21,22 +21,23 @@ public class SubscriberController {
 
     /**
      *  Description:
-     *      - 채팅방 이름을 파라미터로 전달해서 채팅방 개설
+     *      - 채팅방 이름을 요청 파라미터로 전달해서 채팅방 개설
      *
      */
     @PostMapping
     public ChatRoom createChatRoom(@RequestParam String name) {
-        return chatRoomRepository.save(name);
+        return chatRoomRepository.save(ChatRoom.of(name));
     }
 
     /**
      *  Description:
      *      - 해당 아이디를 가진 채팅방의 채팅을 가져옵니다
+     *      - TODO: 페이징 추가
      *
      */
     @GetMapping(path = "/{chatRoomId}")
-    public List<ChatMessage> getChatMessages(@PathVariable("chatRoomId") String chatRoomId) {
-        return chatMessageRepository.findAll(chatRoomId);
+    public List<ChatMessage> getChatMessages(@PathVariable("chatRoomId") Long chatRoomId) {
+        return chatMessageRepository.findAllByChatRoomId(chatRoomId);
     }
 
 }
