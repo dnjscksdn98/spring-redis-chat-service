@@ -31,6 +31,16 @@ public class SubscriberController {
 
     /**
      *  Description:
+     *      - 전체 채팅방 목록을 가져옵니다
+     *
+     */
+    @GetMapping
+    public List<ChatRoom> getChatRooms() {
+        return chatRoomRepository.findAll();
+    }
+
+    /**
+     *  Description:
      *      - 해당 아이디를 가진 채팅방의 채팅을 가져옵니다
      *      - TODO: 페이징 추가
      *
