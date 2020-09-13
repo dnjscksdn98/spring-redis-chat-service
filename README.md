@@ -33,7 +33,7 @@ ws://{domainAddress}:8080/ws/chat
 ### ✓ Subscribe path
 
 ```
-/sub/chat/message/{chatRoomId}
+/sub/chat/room/{chatRoomId}
 ```
 
 ### ✓ Create Chat Room
