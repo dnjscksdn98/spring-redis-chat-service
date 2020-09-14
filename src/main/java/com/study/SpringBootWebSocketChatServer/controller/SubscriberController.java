@@ -49,5 +49,4 @@ public class SubscriberController {
     public List<ChatMessage> getChatMessages(@PathVariable("chatRoomId") Long chatRoomId) {
         return chatMessageRepository.findAllByChatRoomId(chatRoomId);
     }
-
 }
