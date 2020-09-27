@@ -3,6 +3,7 @@ package com.study.SpringBootWebSocketChatServer.model;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.io.Serializable;
 
@@ -12,7 +13,7 @@ public class ChatRoom implements Serializable {
     private static final long serialVersionUID = 34789214329287934L;
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false, length = 50)
