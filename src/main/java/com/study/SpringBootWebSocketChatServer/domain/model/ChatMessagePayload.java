@@ -22,11 +22,11 @@ public class ChatMessagePayload {
     private String content;
 
     @NotBlank
-    @JsonProperty(value = "message_type")
-    private MessageType messageType;
+    private String sender;
 
     @NotBlank
-    private String sender;
+    @JsonProperty(value = "message_type")
+    private MessageType messageType;
 
     @NotNull
     @JsonProperty(value = "chat_room_id")
