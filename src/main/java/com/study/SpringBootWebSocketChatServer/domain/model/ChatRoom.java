@@ -39,4 +39,27 @@ public class ChatRoom implements Serializable {
 
     @OneToMany(mappedBy = "chatRoom", fetch = FetchType.LAZY)
     private List<ChatMessage> messages = new ArrayList<>();
+
+    public void addMessage(ChatMessage message) {
+        messages.add(message);
+    }
+
+    public static ChatRoomBuilder getBuilder() {
+        return new ChatRoomBuilder();
+    }
+
+    public static class ChatRoomBuilder {
+        private String name;
+
+        public ChatRoomBuilder withName(String name) {
+            this.name = name;
+            return this;
+        }
+
+        public ChatRoom build() {
+            ChatRoom chatRoom = new ChatRoom();
+            chatRoom.setName(name);
+            return chatRoom;
+        }
+    }
 }
