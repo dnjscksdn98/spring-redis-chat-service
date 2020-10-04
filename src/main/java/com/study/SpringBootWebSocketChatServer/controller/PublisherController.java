@@ -1,7 +1,7 @@
 package com.study.SpringBootWebSocketChatServer.controller;
 
-import com.study.SpringBootWebSocketChatServer.model.ChatMessagePayload;
-import com.study.SpringBootWebSocketChatServer.model.MessageType;
+import com.study.SpringBootWebSocketChatServer.domain.model.ChatMessagePayload;
+import com.study.SpringBootWebSocketChatServer.domain.status.MessageType;
 import com.study.SpringBootWebSocketChatServer.redis.RedisPublisher;
 import com.study.SpringBootWebSocketChatServer.service.ChatService;
 import org.springframework.beans.factory.annotation.Autowired;

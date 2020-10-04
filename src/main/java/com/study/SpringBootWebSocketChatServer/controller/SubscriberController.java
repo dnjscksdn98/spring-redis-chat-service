@@ -1,7 +1,7 @@
 package com.study.SpringBootWebSocketChatServer.controller;
 
-import com.study.SpringBootWebSocketChatServer.model.ChatMessage;
-import com.study.SpringBootWebSocketChatServer.model.ChatRoom;
+import com.study.SpringBootWebSocketChatServer.domain.model.ChatMessage;
+import com.study.SpringBootWebSocketChatServer.domain.model.ChatRoom;
 import com.study.SpringBootWebSocketChatServer.repository.ChatMessageRepository;
 import com.study.SpringBootWebSocketChatServer.repository.ChatRoomRepository;
 import org.springframework.beans.factory.annotation.Autowired;

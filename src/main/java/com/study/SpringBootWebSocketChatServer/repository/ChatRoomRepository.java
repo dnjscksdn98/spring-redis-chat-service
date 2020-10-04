@@ -1,6 +1,6 @@
 package com.study.SpringBootWebSocketChatServer.repository;
 
-import com.study.SpringBootWebSocketChatServer.model.ChatRoom;
+import com.study.SpringBootWebSocketChatServer.domain.model.ChatRoom;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
