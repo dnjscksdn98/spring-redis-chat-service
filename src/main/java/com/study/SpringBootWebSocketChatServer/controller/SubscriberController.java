@@ -1,14 +1,22 @@
 package com.study.SpringBootWebSocketChatServer.controller;
 
-import com.study.SpringBootWebSocketChatServer.domain.model.ChatMessage;
 import com.study.SpringBootWebSocketChatServer.domain.model.ChatRoom;
 import com.study.SpringBootWebSocketChatServer.repository.ChatMessageRepository;
 import com.study.SpringBootWebSocketChatServer.repository.ChatRoomRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+@Slf4j
 @RestController
 @RequestMapping(path = "/chat")
 public class SubscriberController {
@@ -26,7 +34,10 @@ public class SubscriberController {
      */
     @PostMapping
     public ChatRoom createChatRoom(@RequestParam String name) {
-        return chatRoomRepository.save(ChatRoom.of(name));
+        ChatRoom newChatRoom = ChatRoom.getBuilder()
+                .withName(name)
+                .build();
+        return chatRoomRepository.save(newChatRoom);
     }
 
     /**
@@ -45,9 +56,14 @@ public class SubscriberController {
      *      - TODO: 페이징 추가
      *
      */
-    @GetMapping(path = "/{chatRoomId}")
-    public List<ChatMessage> getChatMessages(@PathVariable("chatRoomId") Long chatRoomId) {
-        return chatMessageRepository.findAllByChatRoomId(chatRoomId);
-    }
+    @GetMapping(path = "/rooms/{chatRoomId}/messages")
+    public ResponseEntity<?> getChatMessages(@PathVariable("chatRoomId") Long chatRoomId) {
+        ChatRoom chatRoom = chatRoomRepository.findById(chatRoomId).orElse(null);
 
+        if (chatRoom != null) {
+            return new ResponseEntity<>(chatRoom.getMessages(), HttpStatus.OK);
+        }
+        log.error("Error message - chat room not found with id: {}", chatRoomId);
+        return new ResponseEntity<>("Error message - chat room not found", HttpStatus.NOT_FOUND);
+    }
 }
