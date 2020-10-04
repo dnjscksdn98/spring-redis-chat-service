@@ -1,7 +1,7 @@
 package com.study.SpringBootWebSocketChatServer.redis;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.study.SpringBootWebSocketChatServer.model.ChatMessagePayload;
+import com.study.SpringBootWebSocketChatServer.domain.model.ChatMessagePayload;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

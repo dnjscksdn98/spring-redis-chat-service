@@ -1,7 +1,7 @@
 package com.study.SpringBootWebSocketChatServer.redis;
 
-import com.study.SpringBootWebSocketChatServer.model.ChatMessage;
-import com.study.SpringBootWebSocketChatServer.model.ChatMessagePayload;
+import com.study.SpringBootWebSocketChatServer.domain.model.ChatMessage;
+import com.study.SpringBootWebSocketChatServer.domain.model.ChatMessagePayload;
 import com.study.SpringBootWebSocketChatServer.repository.ChatMessageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
