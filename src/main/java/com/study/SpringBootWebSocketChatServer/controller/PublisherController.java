@@ -1,7 +1,6 @@
 package com.study.SpringBootWebSocketChatServer.controller;
 
 import com.study.SpringBootWebSocketChatServer.domain.model.ChatMessagePayload;
-import com.study.SpringBootWebSocketChatServer.domain.status.MessageType;
 import com.study.SpringBootWebSocketChatServer.redis.RedisPublisher;
 import com.study.SpringBootWebSocketChatServer.service.ChatService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,10 +25,7 @@ public class PublisherController {
      */
     @MessageMapping(value = "/chat/message")
     public void sendMessage(ChatMessagePayload message) {
-        if (MessageType.ENTER.equals(message.getMessageType())) {
-            chatService.enterChatRoom(message.getChatRoomId());
-            message.setMessage(message.getSender() + "님이 입장하셨습니다.");
-        }
-        redisPublisher.publish(ChannelTopic.of(message.getChatRoomId().toString()), message);
+        String topic = message.getChatRoomId().toString();
+        redisPublisher.publish(ChannelTopic.of(topic), message);
     }
 }
